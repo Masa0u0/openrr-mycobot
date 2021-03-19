@@ -1,0 +1,44 @@
+[[urdf_viz_clients_configs]]
+name = "arm"
+joint_names = [
+    "arm1_joint",
+    "arm2_joint",
+    "arm3_joint",
+    "arm4_joint",
+    "arm5_joint",
+    "arm6_joint",
+]
+
+[openrr_clients_config]
+# relative path only
+urdf_path = "../urdf/mycobot.urdf"
+self_collision_check_pairs = [
+    "body_link:arm1_link",
+    "body_link:arm2_link",
+    "body_link:arm3_link",
+    "body_link:arm4_link",
+    "body_link:arm5_link",
+    "body_link:arm6_link",
+]
+
+[[openrr_clients_config.collision_check_clients_configs]]
+name = "arm_collision_checked"
+client_name = "arm"
+
+[[openrr_clients_config.ik_clients_configs]]
+name = "arm_ik"
+client_name = "arm_collision_checked"
+solver_name = "arm_ik_solver"
+
+[[openrr_clients_config.joints_poses]]
+pose_name = "zero"
+client_name = "arm_collision_checked"
+positions = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+[[openrr_clients_config.joints_poses]]
+pose_name = "pose1"
+client_name = "arm_collision_checked"
+positions = [0.0, 0.5, 0.0, -0.8, 0.0, 0.3]
+
+[openrr_clients_config.ik_solvers_configs.arm_ik_solver]
+ik_target = "arm6_joint"
